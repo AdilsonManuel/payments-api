@@ -1,0 +1,13 @@
+## 📌 Backlog Inicial
+- [X] Criar estrutura base do projeto (Spring Boot, configs).
+- [X] Configurar banco PostgreSQL + Flyway migrations.
+- [X] Implementar cadastro de usuário (endpoint `POST /users`).
+- [ ] Implementar login com JWT (endpoint `POST /auth/login`).
+- [ ] Consultar saldo (endpoint `GET /accounts/{id}/balance`).
+- [ ] Criar transferência (endpoint `POST /transfers`).
+- [ ] Implementar auditoria (logs estruturados).
+- [ ] Implementar limite diário de transferências.
+- [ ] Adicionar documentação Swagger.
+- [ ] Escrever testes automatizados (mínimo 70% cobertura).
+- [ ] Configurar CI/CD (build + tests no GitHub Actions).
+- [ ] Containerizar com Docker Compose.

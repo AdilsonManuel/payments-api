@@ -1,0 +1,151 @@
+{
+    "info": {
+        "name": "Payments API - Users",
+        "_postman_id": "c9b1a4f3-1c9b-4a5a-a7a2-98a4d3f0e5b1",
+        "description": "Coleção de testes para o UserController da Payments API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Criar Usuário",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:8080/api/users/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "users",
+                        ""
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"username\": \"johndoe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"123456\",\n  \"role\": \"USER\"\n}"
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Listar Todos Usuários",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8080/api/users/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "users",
+                        ""
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Buscar Usuário por ID",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8080/api/users/1",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "users",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Actualizar Usuário",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:8080/api/users/1",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "users",
+                        "1"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"username\": \"john_updated\",\n  \"email\": \"john_updated@example.com\",\n  \"password\": \"654321\",\n  \"role\": \"ADMIN\"\n}"
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Desactivar Usuário",
+            "request": {
+                "method": "PATCH",
+                "url": {
+                    "raw": "http://localhost:8080/api/users/1/desactivate",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "users",
+                        "1",
+                        "desactivate"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Deletar Usuário Permanentemente",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://localhost:8080/api/users/1",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "users",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}
