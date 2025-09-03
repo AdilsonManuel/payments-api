@@ -28,43 +28,35 @@ import java.util.stream.Collectors;
 @Tag(name = "Authentication", description = "Authentication Management APIs")
 public class AuthController
 {
-	@Autowired
-	AuthenticationManager authenticationManager;
-	
-	@Autowired
-	UserRepository userRepository;
-	
-	@Autowired
-	UserService userService;
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	JwtUtils jwtUtils;
-	
-	@PostMapping("/signin")
-	@Operation(summary = "user login", description = "Authenticate user and return JWT token")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequestDto)
-	{
-		Authentication authentication = authenticationManager.authentication(
-				new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(), loginRequestDto.getPasswrod())
-		);
-		
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
-		
-		UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
-		List<String> roles = userDetails.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority)
-				.collect(Collectors.toSet());
-		
-		return ResponseEntity.ok(new JwtResponse(jwt,
-				userDetails.getPk_user(),
-				userDetails.getUsername(),
-				userDetails.getEmail(),
-				roles));
-	}
-	
-	
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JwtUtils jwtUtils;
+
+    @PostMapping("/signin")
+    @Operation(summary = "user login", description = "Authenticate user and return JWT token")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequestDto)
+    {
+        Authentication authentication = authenticationManager.authentication(new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(), loginRequestDto.getPasswrod()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getPk_user(), userDetails.getUsername(), userDetails.getEmail(), roles));
+    }
+
+
 }

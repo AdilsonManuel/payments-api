@@ -11,10 +11,19 @@ import java.util.List;
 @AllArgsConstructor
 public class JwtResponse
 {
-	private String token;
-	private String type = "Bearer";
-	private Long pk_user;
-	private String userName;
-	private String email;
-	private List<String> roles;
+    private String token;
+    private Long pk_user;
+    private String type = "Bearer";
+    private String userName;
+    private String email;
+    private List<String> roles;
+
+    public JwtResponse(String jwt, Long pkUser, String username, String email, List<String> roles)
+    {
+        this.token = jwt;
+        this.pk_user = pkUser;
+        this.userName = username;
+        this.email = email;
+        this.roles = roles;
+    }
 }
