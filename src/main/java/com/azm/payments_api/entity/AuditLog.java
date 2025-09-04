@@ -3,6 +3,7 @@ package com.azm.payments_api.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuditLog
+public class AuditLog implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
