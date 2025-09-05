@@ -1,9 +1,9 @@
 package com.azm.payments_api.controller;
 
-import com.azm.payments_api.entity.Account;
-import com.azm.payments_api.entity.BalanceResponse;
+import com.azm.payments_api.entity.*;
 import com.azm.payments_api.security.UserPrincipal;
 import com.azm.payments_api.service.AccountService;
+import com.azm.payments_api.service.TransferService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,7 +48,7 @@ public class AccountController
     {
         try {
             BigDecimal balance = accountService.getBalance(pk_account, userPrincipal.getPk_user());
-            BigDecimal remainingLimit = transferService.getRemainingDailyLimit(accountId, userPrincipal.getId());
+            BigDecimal remainingLimit = transferService.getRemaingDailyLimit(pk_account, userPrincipal.getPk_user());
 
             // Buscar informações da conta para incluir na resposta
             Account account = accountService.findActiveAccountByuserPk(userPrincipal.getPk_user()).stream().filter(acc -> acc.getPk_accounts().equals(pk_account)).findFirst().orElseThrow(() -> new RuntimeException("Account not found"));
@@ -69,9 +69,9 @@ public class AccountController
     public ResponseEntity<?> performTransfer(@Valid @RequestBody TransferRequest transferRequest, @AuthenticationPrincipal UserPrincipal userPrincipal)
     {
         try {
-            Transaction transaction = transferService.performTransfer(transferRequest.getFromAccountNumber(), transferRequest.getToAccountNumber(), transferRequest.getAmount(), transferRequest.getDescription(), userPrincipal.getId());
+            Transaction transaction = transferService.performTransfer(transferRequest.getFromAccountNumber(), transferRequest.getToAccountNumber(), transferRequest.getAmount(), transferRequest.getDescription(), userPrincipal.getPk_user());
 
-            TransferResponse response = new TransferResponse(transaction.getTransactionId(), transaction.getFromAccount().getAccountNumber(), transaction.getToAccount().getAccountNumber(), transaction.getAmount(), transaction.getDescription(), transaction.getStatus().name(), transaction.getCreatedAt(), transaction.getProcessedAt());
+            TransferResponse response = new TransferResponse(transaction.getTransactionCode(), transaction.getFromAccount().getAccountNumber(), transaction.getToAccount().getAccountNumber(), transaction.getAmount(), transaction.getDescription(), transaction.getTransactionstatus().name(), transaction.getCreatedAt(), transaction.getProcessedAt());
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -87,11 +87,11 @@ public class AccountController
     public ResponseEntity<?> getRemainingDailyLimit(@PathVariable Long pk_account, @AuthenticationPrincipal UserPrincipal userPrincipal)
     {
         try {
-            BigDecimal remaininglimit = transferService.getRemainingDailyLimit(accountId, userPrincipal.getId());
+            BigDecimal remaininglimit = transferService.getRemaingDailyLimit(pk_account, userPrincipal.getPk_user());
             Map<String, BigDecimal> response = new HashMap<>();
             response.put("remainingdailyLimit", remaininglimit);
 
-            return ResponseEntity.ok(response)
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
             error.put("message", e.getMessage());

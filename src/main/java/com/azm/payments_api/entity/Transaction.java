@@ -61,6 +61,16 @@ public class Transaction implements Serializable
     @Column(name = "processed_at")
     private LocalDateTime processedAt;
 
+    public Transaction (String transactionCode, BigDecimal amount, String description,
+                        Account fromAccount, Account toAccount)
+    {
+        this.transactionCode = transactionCode;
+        this.amount = amount;
+        this.description = description;
+        this.fromAccount = fromAccount;
+        this.toAccount = toAccount;
+    }
+
     public enum Transactionstatus
     {
         PENDING, COMPLETED, FAILED, CANCELED
